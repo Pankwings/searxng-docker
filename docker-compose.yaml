@@ -5,7 +5,7 @@ services:
   caddy:
     container_name: caddy
     image: caddy:2-alpine
-    restart: always
+    restart: unless-stopped
     network_mode: host
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
@@ -23,7 +23,7 @@ services:
   redis:
     container_name: redis
     image: "redis:alpine"
-    restart: always
+    restart: unless-stopped
     command: redis-server --save "" --appendonly "no"
     networks:
       - searxng
@@ -39,7 +39,7 @@ services:
   searxng:
     container_name: searxng
     image: searxng/searxng:latest
-    restart: always
+    restart: unless-stopped
     networks:
       - searxng
     ports:
